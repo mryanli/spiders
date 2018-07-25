@@ -26,7 +26,7 @@ class SpiderMain:
             new_urls,new_data = self.parser.parse(new_url,html_cont)
             self.url.add_new_urls(new_urls)
             self.data_output.collect_data(new_data)
-            if count ==1000:
+            if count ==100:
                 break
 
             count +=1
