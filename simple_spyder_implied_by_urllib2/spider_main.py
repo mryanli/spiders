@@ -1,23 +1,37 @@
 #!/usr/bin/python
 # -*- coding:UTF-8 -*-
-from spiders.simple_spyder_implied_by_urllib2 import url_manager, html_downloader, html_parser, data_output
+#python  2.7
+
+import url_manager, html_downloader, html_parser, data_output
 
 
 class SpiderMain:
+
     def __init__(self):
-        self.urls = url_manager.UrlManager()
+
+        self.url = url_manager.UrlManager()
         self.downloader = html_downloader.HTMLDownLoader()
         self.parser = html_parser.HTMLParser()
         self.data_output = data_output.DataOutput()
 
     def craw(self,root_url  ):
-        self.urls.add_new_url(root_url)
-        while self.has_new_url():
-            new_url = self.urls.get_new_url()
+        self.url.add_new_url(root_url)
+        count = 1
+        while self.url.has_new_url():
+            # try:
+            new_url = self.url.get_new_url()
+            print('craw %d : %s'%(count,new_url.decode('UTF8').encode('utf-8')))
             html_cont = self.downloader.download(new_url)
+
             new_urls,new_data = self.parser.parse(new_url,html_cont)
-            self.urls.add_new_urls(new_urls)
+            self.url.add_new_urls(new_urls)
             self.data_output.collect_data(new_data)
+            if count ==1000:
+                break
+
+            count +=1
+            # except Exception as e:
+            #     print('craw failed...')
 
         self.data_output.output_html()
 
