@@ -20,20 +20,24 @@ class DataOutput(object):
             f.write('<body>')
             f.write('<table>')
 
-            f.write('<th>')
+            f.write('<tr>')
             f.write('<td>url</td><td>title</td><td>digest</td>')
-            f.write('</th>')
+            f.write('</tr>')
             for data in self.datas:
                 f.write('<tr>')
+
                 f.write('<td>')
                 f.write(data['url'])
                 f.write('</td>')
+
                 f.write('<td>')
                 f.write(data['title'].encode('utf8'))
                 f.write('</td>')
+
                 f.write('<td>')
                 f.write(data['digest'].encode('utf8'))
                 f.write('</td>')
+
                 f.write('</tr>')
             f.write('</table>')
             f.write('</body>')
